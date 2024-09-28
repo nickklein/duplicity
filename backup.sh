@@ -38,22 +38,6 @@ duplicity backup --s3-region-name us-east-1 $VERBOSE \
 # Check if the backup was successful
 if [ $? -eq 0 ]; then
     echo "Backup completed successfully on $(date)"
-
-    # Verify the last backup
-    echo "Verifying the last backup..."
-    duplicity verify \
-        --s3-region-name us-east-1 \
-        --s3-use-ia \
-        $ENCRYPT_OPTION \
-        --gpg-options "$GPG_OPTIONS" \
-        --tempdir "$TEMP_DIR" \
-        "$DEST" "$BASE_DIR"
-
-    if [ $? -eq 0 ]; then
-        echo "Backup verification completed successfully on $(date)"
-    else
-        echo "Backup verification failed on $(date)"
-    fi
 else
     echo "Backup failed on $(date)"
 fi
