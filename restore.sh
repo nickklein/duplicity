@@ -33,6 +33,8 @@ mkdir -p "$RESTORE_DIR"
 
 # Run the restore command
 if [ -n "$SPECIFIC_PATH" ]; then
+    FILE_NAME=$(basename "$SPECIFIC_PATH")
+    TARGET_PATH="${RESTORE_DIR%/}/$FILE_NAME"
     # Restore a specific file or directory using --path-to-restore
     duplicity restore \
         --s3-region-name us-east-1 \
@@ -42,7 +44,7 @@ if [ -n "$SPECIFIC_PATH" ]; then
         --progress \
         --tempdir "$TEMP_DIR" \
         --path-to-restore "$SPECIFIC_PATH" \
-        "$DEST" "$RESTORE_DIR"
+        "$DEST" "$TARGET_PATH"
 else
     # Restore all files
     duplicity restore \
