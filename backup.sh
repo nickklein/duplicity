@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set x-
 # Source the configuration and common functions
 . config.sh
 . common.sh
@@ -32,7 +33,7 @@ duplicity backup --s3-region-name us-east-1 $VERBOSE \
     --progress \
     --tempdir "$TEMP_DIR" \
     --full-if-older-than 6M \
-    $INCLUDES $EXCLUDES \
+    $INCLUDES $EXCLUDES --exclude '**' \
     "$BASE_DIR" "$DEST"
 
 # Check if the backup was successful
